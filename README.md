@@ -1,4 +1,4 @@
-# Simplified SSL Implementation (mySSL)
+# Simplified SSL Implementation (SimpleSSL)
 
 ## Overview
 This project implements a simplified version of the Secure Sockets Layer (SSL) protocol, termed mySSL, in Java. It demonstrates the core functionalities of SSL, including certificate-based authentication, secure key exchange, data encryption, and integrity verification. Designed for educational purposes, this project offers a hands-on approach to understanding how secure communication is established in a client-server model over an insecure network.
