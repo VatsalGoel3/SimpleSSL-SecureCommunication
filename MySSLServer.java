@@ -11,8 +11,8 @@ import java.util.HexFormat;
 
 public class MySSLServer {
     public static void main(String[] args) throws Exception {
-        X509Certificate serverCert = SSLUtils.loadCertificate("/Users/vt003/IdeaProjects/PA2/src/serverCert.pem");
-        PrivateKey serverPrivateKey = SSLUtils.readPKCS8PrivateKey("/Users/vt003/IdeaProjects/PA2/src/serverKey.pem");
+        X509Certificate serverCert = SSLUtils.loadCertificate("serverCert.pem");
+        PrivateKey serverPrivateKey = SSLUtils.readPKCS8PrivateKey("serverKey.pem");
 
         int port = 12343;
         X509Certificate clientCert = null;
