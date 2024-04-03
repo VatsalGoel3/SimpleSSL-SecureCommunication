@@ -18,6 +18,8 @@ The project consists of three main components:
 
 3. **SSLUtils.java:** A utility class that provides cryptographic functionalities such as certificate loading, encryption/decryption, nonce generation, keyed hash computation, and key derivation.
 
+4. **Generate_certificates.sh** To generate X509 certifcates and private key pairs for the program.
+
 ## Getting Started
 ### Prerequisites
 - Java Development Kit (JDK) 11 or later.
@@ -25,19 +27,23 @@ The project consists of three main components:
 
 ### Setup
 1. Clone this repository to your local machine.
-2. Generate self-signed X509 certificates for both the client and server. Place them in the project directory.
+2. Generate self-signed X509 certificates for both the client and server, Using the `generate_certificates.sh` bash script.
 3. Ensure the paths to the certificates and private keys are correctly specified in `SimpleSSLServer.java` and `SimpleSSLClient.java`.
 
 ### Running the Project
-1. Compile the Java files:
+1. Run the bash script:
+   ```
+   bash Generate_certificates.sh
+   ```  
+2. Compile the Java files:
    ```
    javac SimpleSSLServer.java SimpleSSLClient.java SSLUtils.java
    ```
-2. Start the server:
+3. Start the server:
    ```
    java SimpleSSLServer
    ```
-3. In a separate terminal, start the client:
+4. In a separate terminal, start the client:
    ```
    java SimpleSSLClient
    ```
@@ -47,7 +53,7 @@ The project consists of three main components:
 - **Certificate Exchange:** The client and server exchange their certificates.
 - **Algorithm Agreement:** The client sends its encryption and integrity algorithm preferences to the server.
 - **Nonce Exchange and Master Secret Generation:** Encrypted nonces are exchanged and used to generate a master secret.
-- **Hash Verification:** Both parties compute and exchange hashes of the messages exchanged to verify integrity.
+- **Key Pair Creation:** Use the master secret to generate Encryption and Authentication key pair for data phase.
 
 ### Data Phase
 - A file is encrypted using AES and sent from the server to the client along with a hash for integrity verification.
