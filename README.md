@@ -12,9 +12,9 @@ This project implements a simplified version of the Secure Sockets Layer (SSL) p
 ## Project Structure
 The project consists of three main components:
 
-1. **MySSLServer.java:** The server component that listens for connections, performs the handshake, sends an encrypted file to the client, and verifies the integrity of the communication.
+1. **SimpleSSLServer.java:** The server component that listens for connections, performs the handshake, sends an encrypted file to the client, and verifies the integrity of the communication.
 
-2. **MySSLClient.java:** The client component that initiates the connection to the server, participates in the handshake, receives the encrypted file, decrypts it, and verifies its integrity.
+2. **SimpleSSLClient.java:** The client component that initiates the connection to the server, participates in the handshake, receives the encrypted file, decrypts it, and verifies its integrity.
 
 3. **SSLUtils.java:** A utility class that provides cryptographic functionalities such as certificate loading, encryption/decryption, nonce generation, keyed hash computation, and key derivation.
 
@@ -31,15 +31,15 @@ The project consists of three main components:
 ### Running the Project
 1. Compile the Java files:
    ```
-   javac MySSLServer.java MySSLClient.java SSLUtils.java
+   javac SimpleSSLServer.java SimpleSSLClient.java SSLUtils.java
    ```
 2. Start the server:
    ```
-   java MySSLServer
+   java SimpleSSLServer
    ```
 3. In a separate terminal, start the client:
    ```
-   java MySSLClient
+   java SimpleSSLClient
    ```
 
 ## Implementation Details
