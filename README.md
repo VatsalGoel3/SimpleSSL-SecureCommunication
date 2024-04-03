@@ -61,7 +61,7 @@ The project consists of three main components:
 Contributions are welcome. Please submit a pull request or open an issue to suggest improvements or add new features.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
