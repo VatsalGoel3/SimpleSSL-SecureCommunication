@@ -26,7 +26,7 @@ public class MySSLServer {
             DataInputStream dIn = new DataInputStream(clientSocket.getInputStream());
 
             // Send server's certificate
-            byte[] certBytes = Files.readAllBytes(Paths.get("/Users/vt003/IdeaProjects/PA2/src/serverCert.pem"));
+            byte[] certBytes = Files.readAllBytes(Paths.get("serverCert.pem"));
             dOut.writeInt(certBytes.length);
             dOut.write(certBytes);
             dOut.flush();
