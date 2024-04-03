@@ -10,8 +10,8 @@ import java.util.HexFormat;
 
 public class MySSLClient {
     public static void main(String[] args) throws Exception {
-        X509Certificate clientCert = SSLUtils.loadCertificate("/Users/vt003/IdeaProjects/PA2/src/clientCert.pem");
-        PrivateKey clientPrivateKey = SSLUtils.readPKCS8PrivateKey("/Users/vt003/IdeaProjects/PA2/src/clientKey.pem");
+        X509Certificate clientCert = SSLUtils.loadCertificate("clientCert.pem");
+        PrivateKey clientPrivateKey = SSLUtils.readPKCS8PrivateKey("clientKey.pem");
 
         String host = "localhost";
         int port = 12343;
