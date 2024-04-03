@@ -26,7 +26,7 @@ The project consists of three main components:
 ### Setup
 1. Clone this repository to your local machine.
 2. Generate self-signed X509 certificates for both the client and server. Place them in the project directory.
-3. Ensure the paths to the certificates and private keys are correctly specified in `MySSLServer.java` and `MySSLClient.java`.
+3. Ensure the paths to the certificates and private keys are correctly specified in `SimpleSSLServer.java` and `SimpleSSLClient.java`.
 
 ### Running the Project
 1. Compile the Java files:
