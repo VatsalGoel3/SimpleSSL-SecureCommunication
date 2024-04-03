@@ -14,30 +14,38 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class SSLUtils {
+
+    // Holds utilities for encryption tasks
     public static CryptoUtils.EncryptionUtil EncryptionUtil;
 
-    public static X509Certificate loadCertificate(String certPath) throws Exception { // Certificate Input
+    // Loads an X.509 certificate from a file
+    public static X509Certificate loadCertificate(String certPath) throws Exception {
         CertificateFactory factory = CertificateFactory.getInstance("X.509");
-        FileInputStream fis = new FileInputStream(certPath);
-        return (X509Certificate) factory.generateCertificate(fis);
+        try (FileInputStream fis = new FileInputStream(certPath)) {
+            return (X509Certificate) factory.generateCertificate(fis);
+        }
     }
 
+    // Reads a PKCS#8 formatted private key from a file
     public static RSAPrivateKey readPKCS8PrivateKey(String filePath) throws Exception {
+        // Read the entire private key file
         String key = new String(Files.readAllBytes(Paths.get(filePath)));
 
-        String privateKeyPEM = key
-                .replace("-----BEGIN PRIVATE KEY-----", "")
-                .replaceAll(System.lineSeparator(), "")
-                .replace("-----END PRIVATE KEY-----", "");
+        // Clean up the PEM formatted text
+        String privateKeyPEM = key.replace("-----BEGIN PRIVATE KEY-----", "")
+                                   .replaceAll(System.lineSeparator(), "")
+                                   .replace("-----END PRIVATE KEY-----", "");
 
+        // Decode the base64 text to get binary
         byte[] encoded = Base64.getDecoder().decode(privateKeyPEM);
 
+        // Reconstruct the key
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
         return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
     }
 
-    // Simplified method to generate a random nonce
+    // Generates a random nonce (number used once)
     public static byte[] generateNonce() {
         SecureRandom random = new SecureRandom();
         byte[] nonce = new byte[16]; // 128-bit nonce
@@ -45,7 +53,7 @@ public class SSLUtils {
         return nonce;
     }
 
-    // Simplified method to XOR two byte arrays (for master secret generation)
+    // Performs XOR operation between two byte arrays (used for master secret generation)
     public static byte[] xorBytes(byte[] a, byte[] b) {
         byte[] result = new byte[Math.min(a.length, b.length)];
         for (int i = 0; i < result.length; i++) {
@@ -54,19 +62,21 @@ public class SSLUtils {
         return result;
     }
 
+    // Encrypts data using a public RSA key
     public static byte[] encryptData(byte[] data, PublicKey publicKey) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         return cipher.doFinal(data);
     }
 
-    // Method to decrypt data using a private key
+    // Decrypts data using a private RSA key
     public static byte[] decryptData(byte[] data, PrivateKey privateKey) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
 
+    // Computes a keyed hash (HMAC) of the given data
     public static byte[] computeKeyedHash(byte[] data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(), "HmacSHA256");
@@ -74,18 +84,22 @@ public class SSLUtils {
         return sha256_HMAC.doFinal(data);
     }
 
+    // Utility class for key generation
     public static class KeyGenerator {
+        // Derives a key based on the master secret and some unique information
         public static byte[] deriveKey(byte[] masterSecret, String uniqueInfo) throws Exception {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            // Assuming you need a 256-bit key. If you need keys of different sizes, adjust accordingly.
             return digest.digest((uniqueInfo + Arrays.toString(masterSecret)).getBytes());
         }
     }
 
+    // Nested class to handle cryptographic operations
     public static class CryptoUtils {
 
+        // Utility for file encryption
         public static class EncryptionUtil {
 
+            // Encrypts a file using AES and specified key
             public static void encryptFile(byte[] keyBytes, String inputFile, String outputFile) throws Exception {
                 Key key = new SecretKeySpec(keyBytes, "AES");
                 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -112,8 +126,10 @@ public class SSLUtils {
             }
         }
 
+        // Utility for file decryption
         public static class DecryptionUtil {
 
+            // Decrypts a file using AES and specified key
             public static void decryptFile(byte[] keyBytes, String inputFile, String outputFile) throws Exception {
                 Key key = new SecretKeySpec(keyBytes, "AES");
                 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -141,4 +157,3 @@ public class SSLUtils {
         }
     }
 }
-
