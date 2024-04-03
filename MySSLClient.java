@@ -34,7 +34,7 @@ public class MySSLClient {
             }
 
             // Send client's certificate to server
-            byte[] clientCertBytes = Files.readAllBytes(Paths.get("/Users/vt003/IdeaProjects/PA2/src/clientCert.pem"));
+            byte[] clientCertBytes = Files.readAllBytes(Paths.get("clientCert.pem"));
             dOut.writeInt(clientCertBytes.length);
             dOut.write(clientCertBytes);
             dOut.flush();
