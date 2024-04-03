@@ -27,7 +27,7 @@ The project consists of three main components:
 
 ### Setup
 1. Clone this repository to your local machine.
-2. Generate self-signed X509 certificates for both the client and server, Using the `generate_certificates.sh` bash script.
+2. Generate self-signed X509 certificates for both the client and server, Using the `Generate_certificates.sh` bash script.
 3. Ensure the paths to the certificates and private keys are correctly specified in `SimpleSSLServer.java` and `SimpleSSLClient.java`.
 
 ### Running the Project
